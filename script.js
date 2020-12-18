@@ -36,6 +36,14 @@ cell.forEach( (item)=>{
         if(winner===-1);
         else{
            console.log(winner);
+           winner=Number(winner);
+           
+           // incerment the player wins
+           let player='player'+winner;
+           let winnerPlayer=document.getElementById(player);
+           let times=Number( winnerPlayer.children[0].innerText);
+           winnerPlayer.children[0].innerText=times+1;
+
            setTimeout(Resetgrid,2000);
         }
     });
@@ -44,10 +52,11 @@ cell.forEach( (item)=>{
 // This will check which user has won the game
 check=()=>{
     
-    let player1='Player1 has won';
-    let player2='player2 has won';
+    let player1=1;
+    let player2=2;
     let count1=0;
     let count2=0;
+    let total=0;
     
     // checking direction row to col
     for(let i=0;i<3;i++){
@@ -64,8 +73,15 @@ check=()=>{
         }else if(count2===3){
             return player2;
         }
+        
+        // if all the cell is filled then reset the grid
+        total+=count1+count2;
+        if(total===9){
+            setTimeout(Resetgrid,1500);
+        }
 
     }
+    
     
 
   
@@ -152,4 +168,18 @@ Resetgrid=()=>{
     
     // reseting the player turn's
     turn=1; 
+}
+
+
+//This will reset player's wins
+
+ResetWin=()=>{
+
+    for(let i=1;i<3;i++){
+
+        let player='player'+i;
+        let winnerPlayer=document.getElementById(player);
+        winnerPlayer.children[0].innerText=0;
+    }
+    Resetgrid();
 }
